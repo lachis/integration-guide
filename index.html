@@ -445,7 +445,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <span id="email" class="email"><a href="mailto:casinointegrations@entain.com">casinointegrations@entain.com</a></span><br>
 <span id="author2" class="author">Sirtaj Kang</span><br>
 <span id="email2" class="email"><a href="mailto:sirtaj.kang@ivycomptech.com">sirtaj.kang@ivycomptech.com</a></span><br>
-<span id="revdate">220804-1</span>
+<span id="revdate">220825-1</span>
 <br><span id="revremark">DRAFT</span>
 </div>
 <div id="toc" class="toc2">
@@ -469,23 +469,26 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_process_overview">3.1. Process Overview</a></li>
 <li><a href="#_implementation_steps">3.2. Implementation Steps</a>
 <ul class="sectlevel3">
-<li><a href="#_player_management">3.2.1. Player Management</a>
+<li><a href="#_phase_1_player_setup">3.2.1. Phase 1: Player Setup</a>
 <ul class="sectlevel4">
-<li><a href="#_shadow_user_creation">Shadow User Creation</a></li>
-<li><a href="#_bonus_application">Bonus Application</a></li>
+<li><a href="#_initial_player_registration">Initial Player Registration</a></li>
+<li><a href="#_bonus_setup">Bonus Setup</a></li>
 </ul>
 </li>
-<li><a href="#_content_and_game_management">3.2.2. Content and Game Management</a>
+<li><a href="#_phase_2_game_discovery">3.2.2. Phase 2: Game Discovery</a>
 <ul class="sectlevel4">
-<li><a href="#_lobby_integration">Lobby Integration</a></li>
-<li><a href="#_game_updates">Game Updates</a></li>
-<li><a href="#_jackpot_information">Jackpot Information</a></li>
+<li><a href="#_content_synchronization">Content Synchronization</a></li>
+<li><a href="#_frontend_integration">Frontend Integration</a></li>
 </ul>
 </li>
-<li><a href="#_game_launch_and_bingo_features">3.2.3. Game Launch and Bingo Features</a>
+<li><a href="#_phase_3_game_launch">3.2.3. Phase 3: Game Launch</a>
 <ul class="sectlevel4">
-<li><a href="#_game_launch_process">Game Launch Process</a></li>
-<li><a href="#_bingo_prebuy_integration">Bingo Prebuy Integration</a></li>
+<li><a href="#_player_initiated_game_launch">Player-Initiated Game Launch</a></li>
+</ul>
+</li>
+<li><a href="#_phase_4_bingo_features">3.2.4. Phase 4: Bingo Features</a>
+<ul class="sectlevel4">
+<li><a href="#_prebuy_implementation">Prebuy Implementation</a></li>
 </ul>
 </li>
 </ul>
@@ -499,11 +502,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_jackpot">Jackpot</a></li>
 <li><a href="#_lobby">Lobby</a></li>
 <li><a href="#_player">Player</a></li>
+<li><a href="#_service">Service</a></li>
 </ul>
 </li>
 <li><a href="#api/v1/entain-b2b-casino-api_models">3.3.2. Models</a>
 <ul class="sectlevel4">
 <li><a href="#ApplyBonus200Response"><em>ApplyBonus200Response</em></a></li>
+<li><a href="#ApplyBonusRequest"><em>ApplyBonusRequest</em></a></li>
 <li><a href="#BetLimits"><em>BetLimits</em></a></li>
 <li><a href="#BingoAmountsInner"><em>BingoAmountsInner</em></a></li>
 <li><a href="#BingoGame"><em>BingoGame</em></a></li>
@@ -517,8 +522,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#BingoProgressiveJackpot"><em>BingoProgressiveJackpot</em></a></li>
 <li><a href="#BingoRoomUpdate"><em>BingoRoomUpdate</em></a></li>
 <li><a href="#BingoTicketLimits"><em>BingoTicketLimits</em></a></li>
+<li><a href="#BonusValue"><em>BonusValue</em></a></li>
 <li><a href="#CasinoError"><em>CasinoError</em></a></li>
-<li><a href="#CasinoGameUpdate"><em>CasinoGameUpdate</em></a></li>
 <li><a href="#Countdown"><em>Countdown</em></a></li>
 <li><a href="#CreateShadowUser200Response"><em>CreateShadowUser200Response</em></a></li>
 <li><a href="#GameCollection"><em>GameCollection</em></a></li>
@@ -530,6 +535,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#JackpotSubDetail"><em>JackpotSubDetail</em></a></li>
 <li><a href="#LiveCasinoDealer"><em>LiveCasinoDealer</em></a></li>
 <li><a href="#LiveCasinoGameUpdate"><em>LiveCasinoGameUpdate</em></a></li>
+<li><a href="#LiveCasinoLobby"><em>LiveCasinoLobby</em></a></li>
 <li><a href="#LiveCasinoTable"><em>LiveCasinoTable</em></a></li>
 <li><a href="#LobbyCategory"><em>LobbyCategory</em></a></li>
 <li><a href="#LobbyCollection"><em>LobbyCollection</em></a></li>
@@ -540,6 +546,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#LobbyLanguageContentSticker"><em>LobbyLanguageContentSticker</em></a></li>
 <li><a href="#LobbySubcategory"><em>LobbySubcategory</em></a></li>
 <li><a href="#OperationSchedule"><em>OperationSchedule</em></a></li>
+<li><a href="#ServiceHealth"><em>ServiceHealth</em></a></li>
+<li><a href="#ShadowPlayerProfile"><em>ShadowPlayerProfile</em></a></li>
 <li><a href="#VideoSnapshot"><em>VideoSnapshot</em></a></li>
 <li><a href="#VideoSnapshotLinks"><em>VideoSnapshotLinks</em></a></li>
 <li><a href="#VideoSnapshotThumbnails"><em>VideoSnapshotThumbnails</em></a></li>
@@ -554,20 +562,15 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_process_overview_2">4.1. Process Overview</a></li>
 <li><a href="#_implementation_steps_2">4.2. Implementation Steps</a>
 <ul class="sectlevel3">
-<li><a href="#_player_authentication">4.2.1. Player Authentication</a>
+<li><a href="#_phase_1_authentication_service">4.2.1. Phase 1: Authentication Service</a>
 <ul class="sectlevel4">
-<li><a href="#_session_authentication">Session Authentication</a></li>
+<li><a href="#_player_session_validation">Player Session Validation</a></li>
 </ul>
 </li>
-<li><a href="#_wallet_operations">4.2.2. Wallet Operations</a>
+<li><a href="#_phase_2_wallet_service_implementation">4.2.2. Phase 2: Wallet Service Implementation</a>
 <ul class="sectlevel4">
-<li><a href="#_balance_management">Balance Management</a></li>
-<li><a href="#_transaction_processing">Transaction Processing</a></li>
-</ul>
-</li>
-<li><a href="#_session_management">4.2.3. Session Management</a>
-<ul class="sectlevel4">
-<li><a href="#_game_session_tracking">Game Session Tracking</a></li>
+<li><a href="#_core_wallet_operations">Core Wallet Operations</a></li>
+<li><a href="#_transaction_processing_flow">Transaction Processing Flow</a></li>
 </ul>
 </li>
 </ul>
@@ -578,6 +581,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel4">
 <li><a href="#_authentication">Authentication</a></li>
 <li><a href="#_bonus">Bonus</a></li>
+<li><a href="#_service_2">Service</a></li>
 <li><a href="#_wallet">Wallet</a></li>
 </ul>
 </li>
@@ -595,6 +599,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#PlayerInfo"><em>PlayerInfo</em></a></li>
 <li><a href="#PlayerSessionInfo"><em>PlayerSessionInfo</em></a></li>
 <li><a href="#RoundTransaction"><em>RoundTransaction</em></a></li>
+<li><a href="#ServiceHealth"><em>ServiceHealth</em></a></li>
 <li><a href="#WalletError"><em>WalletError</em></a></li>
 </ul>
 </li>
@@ -613,13 +618,33 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_localization_formats">5.1.5. Localization Formats</a></li>
 <li><a href="#_network_and_technical_formats">5.1.6. Network and Technical Formats</a></li>
 <li><a href="#_bonus_and_display_formats">5.1.7. Bonus and Display Formats</a></li>
+<li><a href="#_compliance_and_jurisdiction_formats">5.1.8. Compliance and Jurisdiction Formats</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li><a href="#_appendices">6. Appendices</a>
 <ul class="sectlevel2">
-<li><a href="#_error_handling">6.1. Error Handling</a></li>
+<li><a href="#_error_handling">6.1. Error Handling</a>
+<ul class="sectlevel3">
+<li><a href="#_casino_service_error_responses">6.1.1. Casino Service Error Responses</a></li>
+<li><a href="#_partner_wallet_service_error_responses">6.1.2. Partner Wallet Service Error Responses</a></li>
+</ul>
+</li>
+<li><a href="#_service_health_monitoring">6.2. Service Health Monitoring</a>
+<ul class="sectlevel3">
+<li><a href="#_health_check_endpoints">6.2.1. Health Check Endpoints</a></li>
+<li><a href="#_health_status_levels">6.2.2. Health Status Levels</a></li>
+<li><a href="#_casino_service_dependencies">6.2.3. Casino Service Dependencies</a></li>
+<li><a href="#_partner_wallet_service_dependencies">6.2.4. Partner Wallet Service Dependencies</a></li>
+<li><a href="#_implementation_recommendations">6.2.5. Implementation Recommendations</a>
+<ul class="sectlevel4">
+<li><a href="#_monitoring_strategy">Monitoring Strategy</a></li>
+<li><a href="#_response_format_example">Response Format Example</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -652,28 +677,73 @@ jackpots.</p>
 <dd>
 <p>The type of client (web browser, mobile app) used by the player to access games. Games may be limited to one or more channels.</p>
 </dd>
-<dt class="hdlist1">Game Round</dt>
-<dd>
-<p>Individual betting round within a game session.</p>
-</dd>
 <dt class="hdlist1">Wallet</dt>
 <dd>
 <p>Player&#8217;s account balance and transaction system.</p>
 </dd>
+<dt class="hdlist1">Transaction</dt>
+<dd>
+<p>A financial operation (bet, win, bonus payout) that affects the player&#8217;s wallet balance.</p>
+</dd>
+<dt class="hdlist1">Player Session</dt>
+<dd>
+<p>An authenticated session between the player and the wallet service, established during authentication and used for subsequent wallet operations.</p>
+</dd>
+<dt class="hdlist1">Game Provider</dt>
+<dd>
+<p>The company that develops and supplies games to the Entain platform.</p>
+</dd>
 <dt class="hdlist1">Game</dt>
 <dd>
-<p>A single casino or other game being offered to the B2B Partner&#8217;s players via Entain&#8217;s
-Casino Service.</p>
+<p>A single casino or other game being offered to the B2B Partner&#8217;s players via Entain&#8217;s Casino Service.</p>
+</dd>
+<dt class="hdlist1">Live Casino</dt>
+<dd>
+<p>Real-time casino games with live dealers, streamed to players.</p>
+</dd>
+<dt class="hdlist1">Bingo Room</dt>
+<dd>
+<p>A virtual space where bingo games are conducted, with specific rules and player limits.</p>
+</dd>
+<dt class="hdlist1">Game Round</dt>
+<dd>
+<p>Individual betting round within a game session.</p>
+</dd>
+<dt class="hdlist1">Game Session</dt>
+<dd>
+<p>A period of continuous gameplay by a player, containing one or more game rounds.</p>
+</dd>
+<dt class="hdlist1">Bonus</dt>
+<dd>
+<p>A promotional reward given to players, which can be cash, free spins, free tickets, or other non-monetary benefits.</p>
+</dd>
+<dt class="hdlist1">Prebuy</dt>
+<dd>
+<p>The ability for bingo players to purchase tickets in advance for future game rounds.</p>
+</dd>
+<dt class="hdlist1">Sticker</dt>
+<dd>
+<p>Visual promotional labels displayed on games in the lobby (e.g., "New", "Exclusive", "Hot").</p>
 </dd>
 <dt class="hdlist1">Lobby Feed</dt>
 <dd>
-<p>A catalogue of games offered to a player, organised logically.
-The categories and their criteria are out of scope of this document.</p>
+<p>A catalogue of games offered to a player, organised logically. The categories and their criteria are out of scope of this document.</p>
+</dd>
+<dt class="hdlist1">Jackpot Pool</dt>
+<dd>
+<p>A shared prize fund that accumulates across multiple games or players until won.</p>
 </dd>
 <dt class="hdlist1">Jackpot Feed</dt>
 <dd>
-<p>A list of jackpots (and sub-jackpots) available to be won by
-the player, along with their trigger critera and the games with which they are associated.</p>
+<p>A list of jackpots (and sub-jackpots) available to be won by the player, along with their trigger critera and the games with which they are associated.</p>
+</dd>
+<dt class="hdlist1">MTLS</dt>
+<dd>
+<p>Mutual Transport Layer Security - bidirectional authentication where both client and server verify each other&#8217;s certificates.</p>
+</dd>
+<dt class="hdlist1">HMAC</dt>
+<dd>
+<p>Hash-based Message Authentication Code - cryptographic method for verifying message integrity and authenticity.</p>
 </dd>
 </dl>
 </div>
@@ -740,7 +810,7 @@ The interface for these services are defined in this document.</p>
 <p>Player selects a game from the Partner Portal</p>
 </li>
 <li>
-<p>B2B Partner Backend gets the game URL from the Casino Service, then launches the game in the client</p>
+<p>Player client calls Casino Service directly to get game launch URL</p>
 </li>
 <li>
 <p>During gameplay, the game calls the Casino service for wallet operations, which are proxied to the Partner Wallet Service.</p>
@@ -764,10 +834,13 @@ The interface for these services are defined in this document.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>mTLS Implementation</strong>: Both services must implement mutual TLS for secure authentication</p>
+<p><strong>mTLS Implementation</strong>: Casino Service requires mTLS for backend-to-backend calls</p>
 </li>
 <li>
-<p><strong>HMAC Authentication</strong>: Additional message integrity and idempotency protection</p>
+<p><strong>HMAC Authentication</strong>: Additional message integrity protection for Casino Service</p>
+</li>
+<li>
+<p><strong>Player Client Calls</strong>: Game launch endpoint uses standard HTTPS only</p>
 </li>
 <li>
 <p><strong>JSON API Support</strong>: RESTful API with JSON payloads</p>
@@ -808,180 +881,143 @@ The interface for these services are defined in this document.</p>
 <div class="sect2">
 <h3 id="_implementation_steps">3.2. Implementation Steps</h3>
 <div class="sect3">
-<h4 id="_player_management">3.2.1. Player Management</h4>
+<h4 id="_phase_1_player_setup">3.2.1. Phase 1: Player Setup</h4>
 <div class="sect4">
-<h5 id="_shadow_user_creation">Shadow User Creation</h5>
+<h5 id="_initial_player_registration">Initial Player Registration</h5>
 <div class="paragraph">
-<p>Create shadow users in the Entain system for tracking purposes:</p>
+<p>When a player registers on your platform:</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>Provide player ID from your system</p>
-</li>
-<li>
-<p>Player nickname for display</p>
-</li>
-<li>
-<p>Language preference (defaults to label default if omitted)</p>
-</li>
-<li>
-<p>Account currency (ISO 4217 format)</p>
-</li>
-<li>
-<p>Country code (optional, defaults to label default)</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_bonus_application">Bonus Application</h5>
-<div class="paragraph">
-<p>Apply bonuses to players on deposit:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Support bonus codes</p>
-</li>
-<li>
-<p>Handle deposit amounts and currency</p>
-</li>
-<li>
-<p>Process bonus awards</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_content_and_game_management">3.2.2. Content and Game Management</h4>
-<div class="sect4">
-<h5 id="_lobby_integration">Lobby Integration</h5>
-<div class="paragraph">
-<p>Retrieve lobby feeds containing:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Default lobby feed for all users</p>
-</li>
-<li>
-<p>Casino and bingo game lobbies</p>
-</li>
-<li>
-<p>Game categories and subcategories</p>
-</li>
-<li>
-<p>Available games per category</p>
-</li>
-<li>
-<p>Game metadata and icons</p>
-</li>
-<li>
-<p>Language-specific content and stickers</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_game_updates">Game Updates</h5>
-<div class="paragraph">
-<p>Access real-time game metadata updates:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Casino game sticker updates</p>
-</li>
-<li>
-<p>Live casino game status and results</p>
-</li>
-<li>
-<p>Bingo room player counts and status</p>
-</li>
-<li>
-<p>Dealer information for live games</p>
-</li>
-<li>
-<p>Game countdown timers</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_jackpot_information">Jackpot Information</h5>
-<div class="paragraph">
-<p>Access jackpot data including:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Available jackpot groups and pools</p>
-</li>
-<li>
-<p>Current jackpot amounts and values</p>
-</li>
-<li>
-<p>Eligible games for each jackpot</p>
-</li>
-<li>
-<p>Trigger conditions and award types</p>
-</li>
-<li>
-<p>Player participation tracking</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_game_launch_and_bingo_features">3.2.3. Game Launch and Bingo Features</h4>
-<div class="sect4">
-<h5 id="_game_launch_process">Game Launch Process</h5>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Player selects game from lobby</p>
+<p><strong>Capture Player Information</strong>: Collect nickname, language, currency, and country during registration</p>
 </li>
 <li>
-<p>Your client calls Entain&#8217;s game launch endpoint</p>
+<p><strong>Create Shadow User</strong>: Call <code>CreateShadowUser</code> with player details to establish tracking in Entain system</p>
 </li>
 <li>
-<p>Receive game launch URL</p>
+<p><strong>Store Entain Account ID</strong>: Save the returned <code>entain_account_id</code> for future reference</p>
 </li>
 <li>
-<p>Redirect player to game</p>
+<p><strong>Generate Auth Tokens</strong>: Create player authentication tokens for game launch</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_bonus_setup">Bonus Setup</h5>
+<div class="paragraph">
+<p>For promotional campaigns:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Apply Welcome Bonuses</strong>: Use <code>ApplyBonus</code> with bonus codes during player onboarding</p>
+</li>
+<li>
+<p><strong>Monitor Bonus Balances</strong>: Periodically call <code>GetPlayerBonuses</code> to display available bonuses</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_phase_2_game_discovery">3.2.2. Phase 2: Game Discovery</h4>
+<div class="sect4">
+<h5 id="_content_synchronization">Content Synchronization</h5>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Game Catalog Updates</strong>: Call <code>GetAvailableGames</code> every ~30 minutes to refresh your game catalog</p>
+</li>
+<li>
+<p><strong>Lobby Configuration</strong>: Use <code>GetCommonLobby</code> to retrieve game categories and organization</p>
+</li>
+<li>
+<p><strong>Jackpot Information</strong>: Call <code>GetJackpots</code> every 30 seconds to display current jackpot values</p>
+</li>
+<li>
+<p><strong>Live Updates</strong>: Call <code>GetGameUpdates</code> every 3-5 seconds for real-time lobby information</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_frontend_integration">Frontend Integration</h5>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Cache Game Data</strong>: Store game metadata locally to reduce API calls</p>
+</li>
+<li>
+<p><strong>Display Lobby</strong>: Render games using categories and stickers from lobby feed</p>
+</li>
+<li>
+<p><strong>Show Jackpots</strong>: Display jackpot values with automatic refresh</p>
+</li>
+<li>
+<p><strong>Filter Content</strong>: Use <code>game_types</code> parameter to show casino, live casino, or bingo games</p>
+</li>
+<li>
+<p><strong>Game Graphics</strong>: Fetch game tiles and visual assets from Entain&#8217;s image CDN. CDN base URL and image path construction details are defined separately</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_phase_3_game_launch">3.2.3. Phase 3: Game Launch</h4>
+<div class="sect4">
+<h5 id="_player_initiated_game_launch">Player-Initiated Game Launch</h5>
+<div class="paragraph">
+<p>When player selects a game:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Validate Player Session</strong>: Ensure player is authenticated on your platform</p>
+</li>
+<li>
+<p><strong>Prepare Launch Parameters</strong>: Gather required data (player_id, nickname, currency, user_ip, etc.)</p>
+</li>
+<li>
+<p><strong>Direct Client Call</strong>: Player&#8217;s browser/app calls <code>GetGameLaunchUrl</code> directly (bypasses your backend)</p>
+</li>
+<li>
+<p><strong>Handle Response</strong>: Redirect player to the returned game launch URL</p>
+</li>
+<li>
+<p><strong>Session Tracking</strong>: Monitor game session for analytics (optional)</p>
 </li>
 </ol>
 </div>
 <div class="paragraph">
-<p><strong>Important Note</strong>: The game launch endpoint is called directly by the player client, bypassing mTLS and HMAC authentication.</p>
+<p><strong>Critical</strong>: Game launch bypasses backend authentication - ensure your client properly validates player session.</p>
 </div>
 </div>
+</div>
+<div class="sect3">
+<h4 id="_phase_4_bingo_features">3.2.4. Phase 4: Bingo Features</h4>
 <div class="sect4">
-<h5 id="_bingo_prebuy_integration">Bingo Prebuy Integration</h5>
+<h5 id="_prebuy_implementation">Prebuy Implementation</h5>
 <div class="paragraph">
-<p>Implement bingo prebuy functionality:</p>
+<p>For bingo game integration:</p>
 </div>
-<div class="ulist">
-<ul>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
-<p>Retrieve available prebuy slots for upcoming bingo games</p>
+<p><strong>Display Available Slots</strong>: Call <code>GetBingoPrebuySlots</code> to show upcoming bingo games</p>
 </li>
 <li>
-<p>Allow players to purchase tickets in advance</p>
+<p><strong>Handle Purchases</strong>: Use <code>PrebuyBingoTickets</code> when players buy advance tickets</p>
 </li>
 <li>
-<p>Support multiple ticket purchases per slot</p>
+<p><strong>Process Payments</strong>: Route prebuy transactions through your wallet service</p>
 </li>
 <li>
-<p>Handle prebuy errors and ticket limits</p>
+<p><strong>Manage Inventory</strong>: Track purchased tickets and game participation</p>
 </li>
-<li>
-<p>Process prebuy transactions through wallet service</p>
-</li>
-</ul>
+</ol>
 </div>
 </div>
 </div>
@@ -990,7 +1026,7 @@ The interface for these services are defined in this document.</p>
 <h3 id="_b2b_casino_service_api">3.3. B2B Casino Service API</h3>
 <div class="paragraph">
 <p><a href="mailto:team@openapitools.org">team@openapitools.org</a>
-draft-0.6</p>
+0.9</p>
 </div>
 <div class="quoteblock abstract">
 <div class="title">Abstract</div>
@@ -1268,7 +1304,7 @@ This API is implemented by the Entain B2B Casino Service. It is intended to be c
 <div class="sect5 getGameLaunchUrl">
 <h6 id="_getgamelaunchurl">getGameLaunchUrl</h6>
 <div class="paragraph">
-<p><code>POST /game/{game_id}/get_lauch_url</code></p>
+<p><code>POST /game/{game_id}/get_launch_url</code></p>
 </div>
 <div class="paragraph">
 <p>Get game launch URL</p>
@@ -1630,7 +1666,36 @@ This API is implemented by the Entain B2B Casino Service. It is intended to be c
 </div>
 <div class="sect6">
 <h7 id="_parameters_7">Parameters</h7>
-
+<div class="sect7">
+<h8 id="_query_parameters_3">Query Parameters</h8>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">game_types</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If present, the response structure only contains the lobbies for the game types specified. <a href="#String">[String]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 <div class="sect6">
 <h7 id="_return_type_7">Return Type</h7>
@@ -1697,7 +1762,7 @@ This API is implemented by the Entain B2B Casino Service. It is intended to be c
 <div class="sect6">
 <h7 id="_description_8">Description</h7>
 <div class="paragraph">
-<p>Awards a bonus to the player.</p>
+<p>Awards a bonus to the player. This also creates a shadow account for the player if one does not already exist. Profile information for the user should be passed in the <code>player_info</code> field of the request.</p>
 </div>
 </div>
 <div class="sect6">
@@ -1733,7 +1798,7 @@ This API is implemented by the Entain B2B Casino Service. It is intended to be c
 </table>
 </div>
 <div class="sect7">
-<h8 id="_query_parameters_3">Query Parameters</h8>
+<h8 id="_body_parameter_2">Body Parameter</h8>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 25%;">
@@ -1753,17 +1818,10 @@ This API is implemented by the Entain B2B Casino Service. It is intended to be c
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">bonus_code</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The bonus code to be applied</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ApplyBonusRequest</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#ApplyBonusRequest"><em>ApplyBonusRequest</em></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
 <td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">currency</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The currency of the player</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 </tbody>
@@ -1824,7 +1882,7 @@ This API is implemented by the Entain B2B Casino Service. It is intended to be c
 <div class="sect5 createShadowUser">
 <h6 id="_createshadowuser">createShadowUser</h6>
 <div class="paragraph">
-<p><code>POST /players</code></p>
+<p><code>POST /players/{player_id}</code></p>
 </div>
 <div class="paragraph">
 <p>Create shadow user</p>
@@ -1838,7 +1896,7 @@ This API is implemented by the Entain B2B Casino Service. It is intended to be c
 <div class="sect6">
 <h7 id="_parameters_9">Parameters</h7>
 <div class="sect7">
-<h8 id="_query_parameters_4">Query Parameters</h8>
+<h8 id="_path_parameters_3">Path Parameters</h8>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 25%;">
@@ -1859,37 +1917,39 @@ This API is implemented by the Entain B2B Casino Service. It is intended to be c
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">player_id</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The B2B Partner player ID</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The player ID</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
+</tbody>
+</table>
+</div>
+<div class="sect7">
+<h8 id="_body_parameter_3">Body Parameter</h8>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<thead>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">nickname</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The player nickname for display purposes</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Pattern</th>
 </tr>
+</thead>
+<tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">language</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The player&#39;s language code. If omitted, the default language code for the label is assumed.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ShadowPlayerProfile</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#ShadowPlayerProfile"><em>ShadowPlayerProfile</em></a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
 <td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">currency</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The player&#39;s account currency</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">country</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The player&#39;s country code. If omitted, the default country code for the label is assumed.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 </tbody>
@@ -1947,6 +2007,172 @@ This API is implemented by the Entain B2B Casino Service. It is intended to be c
 
 </div>
 </div>
+<div class="sect5 getPlayerBonuses">
+<h6 id="_getplayerbonuses">getPlayerBonuses</h6>
+<div class="paragraph">
+<p><code>GET /players/{player_id}/bonus</code></p>
+</div>
+<div class="paragraph">
+<p>Get bonus balances for player</p>
+</div>
+<div class="sect6">
+<h7 id="_description_10">Description</h7>
+
+</div>
+<div class="sect6">
+<h7 id="_parameters_10">Parameters</h7>
+<div class="sect7">
+<h8 id="_path_parameters_4">Path Parameters</h8>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">player_id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The player ID</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect6">
+<h7 id="_return_type_10">Return Type</h7>
+<div class="paragraph">
+<p>array[<a href="#BonusValue"><em>BonusValue</em></a>]</p>
+</div>
+</div>
+<div class="sect6">
+<h7 id="_content_type_10">Content Type</h7>
+<div class="ulist">
+<ul>
+<li>
+<p>application/json</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect6">
+<h7 id="_responses_10">Responses</h7>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 10. HTTP Response Codes</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 50%;">
+<col style="width: 16.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Code</th>
+<th class="tableblock halign-left valign-top">Message</th>
+<th class="tableblock halign-left valign-top">Datatype</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">200</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bonus balances retrieved successfully</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List[<a href="#BonusValue"><em>BonusValue</em></a>]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Error retrieving bonus balances</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#CasinoError"><em>CasinoError</em></a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect6">
+<h7 id="_samples_10">Samples</h7>
+
+</div>
+</div>
+</div>
+<div class="sect4 Service">
+<h5 id="_service">Service</h5>
+<div class="sect5 getServiceHealth">
+<h6 id="_getservicehealth">getServiceHealth</h6>
+<div class="paragraph">
+<p><code>GET /service_health</code></p>
+</div>
+<div class="paragraph">
+<p>Returns information about the health of this API service</p>
+</div>
+<div class="sect6">
+<h7 id="_description_11">Description</h7>
+
+</div>
+<div class="sect6">
+<h7 id="_parameters_11">Parameters</h7>
+
+</div>
+<div class="sect6">
+<h7 id="_return_type_11">Return Type</h7>
+<div class="paragraph">
+<p><a href="#ServiceHealth"><em>ServiceHealth</em></a></p>
+</div>
+</div>
+<div class="sect6">
+<h7 id="_content_type_11">Content Type</h7>
+<div class="ulist">
+<ul>
+<li>
+<p>application/json</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect6">
+<h7 id="_responses_11">Responses</h7>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 11. HTTP Response Codes</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 50%;">
+<col style="width: 16.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Code</th>
+<th class="tableblock halign-left valign-top">Message</th>
+<th class="tableblock halign-left valign-top">Datatype</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">200</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Service health information</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#ServiceHealth"><em>ServiceHealth</em></a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Service health check lookup error</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#CasinoError"><em>CasinoError</em></a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect6">
+<h7 id="_samples_11">Samples</h7>
+
+</div>
+</div>
 </div>
 </div>
 <div class="sect3">
@@ -1988,6 +2214,55 @@ This API is implemented by the Entain B2B Casino Service. It is intended to be c
 <td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect4">
+<h5 id="ApplyBonusRequest"><em>ApplyBonusRequest</em></h5>
+<table class="tableblock frame-all grid-all stretch fields-ApplyBonusRequest">
+<colgroup>
+<col style="width: 18.1818%;">
+<col style="width: 9.0909%;">
+<col style="width: 9.0909%;">
+<col style="width: 18.1818%;">
+<col style="width: 36.3636%;">
+<col style="width: 9.091%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field Name</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Nullable</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Format</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">player_info</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#ShadowPlayerProfile"><em>ShadowPlayerProfile</em></a></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bonus_code</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The bonus code to be applied</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bonuscode</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">currency</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The currency of the player</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">currencycode</p></td>
 </tr>
 </tbody>
 </table>
@@ -2724,6 +2999,58 @@ This API is implemented by the Entain B2B Casino Service. It is intended to be c
 </table>
 </div>
 <div class="sect4">
+<h5 id="BonusValue"><em>BonusValue</em></h5>
+<div class="paragraph">
+<p>A value of a single bonus type</p>
+</div>
+<table class="tableblock frame-all grid-all stretch fields-BonusValue">
+<colgroup>
+<col style="width: 18.1818%;">
+<col style="width: 9.0909%;">
+<col style="width: 9.0909%;">
+<col style="width: 18.1818%;">
+<col style="width: 36.3636%;">
+<col style="width: 9.091%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field Name</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Nullable</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Format</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bonus_type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#String">[String]</a></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bonus_type <em>Enum:</em> cash, bonus_cash, freespins, freetickets, coins,</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">amount</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The value of the bonus type</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">currency</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Only present and non-empty if relevant to the bonus type (eg cash, bonus_cash)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">currency</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect4">
 <h5 id="CasinoError"><em>CasinoError</em></h5>
 <div class="paragraph">
 <p>General error response for casino API endpoints</p>
@@ -2770,47 +3097,6 @@ This API is implemented by the Entain B2B Casino Service. It is intended to be c
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Map   of <a href="#AnyType">[AnyType]</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Optional additional error context.</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect4">
-<h5 id="CasinoGameUpdate"><em>CasinoGameUpdate</em></h5>
-<table class="tableblock frame-all grid-all stretch fields-CasinoGameUpdate">
-<colgroup>
-<col style="width: 18.1818%;">
-<col style="width: 9.0909%;">
-<col style="width: 9.0909%;">
-<col style="width: 18.1818%;">
-<col style="width: 36.3636%;">
-<col style="width: 9.091%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Field Name</th>
-<th class="tableblock halign-left valign-top">Required</th>
-<th class="tableblock halign-left valign-top">Nullable</th>
-<th class="tableblock halign-left valign-top">Type</th>
-<th class="tableblock halign-left valign-top">Description</th>
-<th class="tableblock halign-left valign-top">Format</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">game_id</p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">game_id</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">stickers</p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">List   of <a href="#LobbyLanguageContentSticker"><em>LobbyLanguageContentSticker</em></a></p></td>
-<td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 </tbody>
@@ -3028,6 +3314,14 @@ This API is implemented by the Entain B2B Casino Service. It is intended to be c
 <td class="tableblock halign-left valign-top"><p class="tableblock">Game variant identifier</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">channels</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List   of <a href="#string">[string]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">list of channels for which the game is available</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">channel_id</p></td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -3056,14 +3350,6 @@ This API is implemented by the Entain B2B Casino Service. It is intended to be c
 </tr>
 </thead>
 <tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">casino_games</p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">List   of <a href="#CasinoGameUpdate"><em>CasinoGameUpdate</em></a></p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">live_casino</p></td>
 <td class="tableblock halign-left valign-top"></td>
@@ -3643,6 +3929,47 @@ This API is implemented by the Entain B2B Casino Service. It is intended to be c
 </table>
 </div>
 <div class="sect4">
+<h5 id="LiveCasinoLobby"><em>LiveCasinoLobby</em></h5>
+<table class="tableblock frame-all grid-all stretch fields-LiveCasinoLobby">
+<colgroup>
+<col style="width: 18.1818%;">
+<col style="width: 9.0909%;">
+<col style="width: 9.0909%;">
+<col style="width: 18.1818%;">
+<col style="width: 36.3636%;">
+<col style="width: 9.091%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field Name</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Nullable</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Format</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">channel</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The channel for which the live casino feed is valid.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">channel_id</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">tables</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#LiveCasinoTable"><em>LiveCasinoTable</em></a></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect4">
 <h5 id="LiveCasinoTable"><em>LiveCasinoTable</em></h5>
 <div class="paragraph">
 <p>Full live casino feed (possibly slow)</p>
@@ -3992,6 +4319,14 @@ This API is implemented by the Entain B2B Casino Service. It is intended to be c
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#BingoLobby"><em>BingoLobby</em></a></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">live_casino_lobby</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List   of <a href="#LiveCasinoLobby"><em>LiveCasinoLobby</em></a></p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
@@ -4359,6 +4694,136 @@ This API is implemented by the Entain B2B Casino Service. It is intended to be c
 </table>
 </div>
 <div class="sect4">
+<h5 id="ServiceHealth"><em>ServiceHealth</em></h5>
+<table class="tableblock frame-all grid-all stretch fields-ServiceHealth">
+<colgroup>
+<col style="width: 18.1818%;">
+<col style="width: 9.0909%;">
+<col style="width: 9.0909%;">
+<col style="width: 18.1818%;">
+<col style="width: 36.3636%;">
+<col style="width: 9.091%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field Name</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Nullable</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Format</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">name</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of the service or subservice</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">status</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#String">[String]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The status of the service</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Enum:</em> OK, WARNING, DEGRADED, DOWN,</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">message</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A message describing the status of the service</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">version</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The deployed version of the service</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">dependencies</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List   of <a href="#ServiceHealth"><em>ServiceHealth</em></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A list of dependencies and their status</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect4">
+<h5 id="ShadowPlayerProfile"><em>ShadowPlayerProfile</em></h5>
+<table class="tableblock frame-all grid-all stretch fields-ShadowPlayerProfile">
+<colgroup>
+<col style="width: 18.1818%;">
+<col style="width: 9.0909%;">
+<col style="width: 9.0909%;">
+<col style="width: 18.1818%;">
+<col style="width: 36.3636%;">
+<col style="width: 9.091%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field Name</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Nullable</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Format</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">nickname</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The player nickname for display purposes</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">language</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The player&#39;s language code. If omitted, the default language code for the label is assumed.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">languagecode</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">currency</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The player&#39;s account currency</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">currencycode</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">country</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The player&#39;s country code. If omitted, the default country code for the label is assumed.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">countrycode</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">jurisdiction</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">To support multiple jurisdicitions for one deployed brand, jurisdiction IDs will be supplied for use by the B2B partner, which must then be passed here. For all deployments one jurisdiction is an implicit or explicit default, which will be selected if this value is not provided in this API call.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">jurisdictioncode</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect4">
 <h5 id="VideoSnapshot"><em>VideoSnapshot</em></h5>
 <table class="tableblock frame-all grid-all stretch fields-VideoSnapshot">
 <colgroup>
@@ -4529,169 +4994,89 @@ This API is implemented by the Entain B2B Casino Service. It is intended to be c
 <div class="sect2">
 <h3 id="_process_overview_2">4.1. Process Overview</h3>
 <div class="paragraph">
-<p>You must implement the Partner Wallet Service that will be called by the Casino Service during gameplay. This service handles player authentication, wallet operations, and game state tracking. It&#8217;s the core of your financial and player management integration.</p>
+<p>You must implement the Partner Wallet Service called by Casino Service during gameplay. This handles player authentication, wallet operations, and transaction tracking.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_implementation_steps_2">4.2. Implementation Steps</h3>
 <div class="sect3">
-<h4 id="_player_authentication">4.2.1. Player Authentication</h4>
+<h4 id="_phase_1_authentication_service">4.2.1. Phase 1: Authentication Service</h4>
 <div class="sect4">
-<h5 id="_session_authentication">Session Authentication</h5>
+<h5 id="_player_session_validation">Player Session Validation</h5>
 <div class="paragraph">
-<p>Implement player session authentication that:</p>
+<p>Implement <code>PlayerSessionAuthenticate</code> to handle game authentication:</p>
 </div>
-<div class="ulist">
-<ul>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
-<p>Validates player auth tokens generated by your system</p>
+<p><strong>Token Validation</strong>: Verify the <code>player_auth_token</code> against your authentication system</p>
 </li>
 <li>
-<p>Verifies player ID matches the authenticated session</p>
+<p><strong>Player Lookup</strong>: Retrieve player information using validated token</p>
 </li>
 <li>
-<p>Returns player information and player session</p>
+<p><strong>Session Creation</strong>: Generate and return a <code>player_session_id</code> for wallet operations</p>
 </li>
 <li>
-<p>Handles authentication errors appropriately</p>
+<p><strong>Security Check</strong>: Validate that <code>player_id</code> matches the authenticated token</p>
 </li>
-</ul>
+</ol>
 </div>
 <div class="paragraph">
-<p><strong>Critical</strong>: The player_id parameter cannot be trusted before authentication as it passes through multiple layers.</p>
+<p><strong>Critical</strong>: Never trust the <code>player_id</code> parameter before authentication - it passes through multiple untrusted layers.</p>
 </div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_wallet_operations">4.2.2. Wallet Operations</h4>
+<h4 id="_phase_2_wallet_service_implementation">4.2.2. Phase 2: Wallet Service Implementation</h4>
 <div class="sect4">
-<h5 id="_balance_management">Balance Management</h5>
+<h5 id="_core_wallet_operations">Core Wallet Operations</h5>
 <div class="paragraph">
-<p>Your service must provide:</p>
+<p>Implement these essential operations:</p>
 </div>
-<div class="ulist">
-<ul>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
-<p>Real-time balance lookups</p>
+<p><strong><code>PlayerGetBalance</code></strong>: Return real-time player balance for game display</p>
 </li>
 <li>
-<p>Support for game-specific balances (optional)</p>
+<p><strong><code>GameRoundTransaction</code></strong>: Process bets, wins, and jackpot payouts atomically</p>
 </li>
 <li>
-<p>Currency handling in 1/100 units (e.g., 1050 for $10.50)</p>
+<p><strong><code>GameRoundBetCancelled</code></strong>: Handle bet reversals and refunds</p>
 </li>
 <li>
-<p>Timestamp validation for synchronization</p>
+<p><strong><code>BonusPayout</code></strong>: Process bonus awards from promotional campaigns</p>
 </li>
-</ul>
+</ol>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_transaction_processing">Transaction Processing</h5>
-<div class="sect5">
-<h6 id="_game_round_transactions">Game Round Transactions</h6>
-<div class="ulist">
-<ul>
-<li>
-<p>Process multiple transaction types in single request:</p>
-<div class="ulist">
-<ul>
-<li>
-<p><code>bet</code>: Player places a bet</p>
-</li>
-<li>
-<p><code>win</code>: Player receives winnings</p>
-</li>
-<li>
-<p><code>jackpot_win</code>: Player wins jackpot</p>
-</li>
-<li>
-<p><code>freespin_bet</code>: Free spin bet placement</p>
-</li>
-<li>
-<p><code>freespin_win</code>: Free spin result</p>
-</li>
-</ul>
+<h5 id="_transaction_processing_flow">Transaction Processing Flow</h5>
+<div class="paragraph">
+<p>For each game round:</p>
 </div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Receive Transaction Request</strong>: Game sends bet/win data via <code>GameRoundTransaction</code></p>
 </li>
 <li>
-<p>Handle jackpot contributions separately</p>
+<p><strong>Validate Session</strong>: Ensure <code>player_session_id</code> is valid and active</p>
 </li>
 <li>
-<p>Mark rounds as closed when <code>round_closed</code> flag is true</p>
+<p><strong>Process Atomically</strong>: Handle all transactions in the request as a single unit</p>
 </li>
 <li>
-<p>Support both casino and bingo product types</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect5">
-<h6 id="_transaction_cancellation">Transaction Cancellation</h6>
-<div class="ulist">
-<ul>
-<li>
-<p>Reverse previous bet transactions</p>
+<p><strong>Update Balance</strong>: Debit bets, credit wins, handle jackpot contributions</p>
 </li>
 <li>
-<p>Return funds to player wallet</p>
+<p><strong>Return Updated Balance</strong>: Send current balance back to game</p>
 </li>
 <li>
-<p>Reference original transaction ID for cancellation</p>
+<p><strong>Audit Trail</strong>: Log all transactions for compliance and reconciliation</p>
 </li>
-<li>
-<p>Maintain transaction audit trail</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect5">
-<h6 id="_bonus_payouts">Bonus Payouts</h6>
-<div class="ulist">
-<ul>
-<li>
-<p>Process bonus awards with specific bonus and win types:</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Bonus types: <code>coin</code>, <code>freespin</code>, <code>freetoplay</code>, <code>goldencoin</code>, <code>freeticket</code></p>
-</li>
-<li>
-<p>Win types: <code>cash</code>, <code>bonus</code>, <code>coins</code></p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Handle currency-specific and non-currency bonuses</p>
-</li>
-<li>
-<p>Track bonus reference IDs for audit purposes</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_session_management">4.2.3. Session Management</h4>
-<div class="sect4">
-<h5 id="_game_session_tracking">Game Session Tracking</h5>
-<div class="ulist">
-<ul>
-<li>
-<p>Track game session lifecycle</p>
-</li>
-<li>
-<p>Handle session end notifications (<strong>unreliable - implement your own timeout logic</strong>)</p>
-</li>
-<li>
-<p>Maintain session state for audit purposes</p>
-</li>
-<li>
-<p>Process session-related events</p>
-</li>
-</ul>
+</ol>
 </div>
 </div>
 </div>
@@ -4700,7 +5085,7 @@ This API is implemented by the Entain B2B Casino Service. It is intended to be c
 <h3 id="_entain_b2b_wallet_service_api">4.3. Entain B2B Wallet Service API</h3>
 <div class="paragraph">
 <p><a href="mailto:team@openapitools.org">team@openapitools.org</a>
-draft-0.7</p>
+0.9</p>
 </div>
 <div class="quoteblock abstract">
 <div class="title">Abstract</div>
@@ -4721,13 +5106,13 @@ Provides services to authenticate a player, start game sessions and perform oper
 <p>Authenticate player session</p>
 </div>
 <div class="sect6">
-<h7 id="_description_10">Description</h7>
+<h7 id="_description_12">Description</h7>
 
 </div>
 <div class="sect6">
-<h7 id="_parameters_10">Parameters</h7>
+<h7 id="_parameters_12">Parameters</h7>
 <div class="sect7">
-<h8 id="_path_parameters_3">Path Parameters</h8>
+<h8 id="_path_parameters_5">Path Parameters</h8>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 25%;">
@@ -4757,7 +5142,7 @@ Provides services to authenticate a player, start game sessions and perform oper
 </table>
 </div>
 <div class="sect7">
-<h8 id="_query_parameters_5">Query Parameters</h8>
+<h8 id="_query_parameters_4">Query Parameters</h8>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 25%;">
@@ -4795,209 +5180,9 @@ Provides services to authenticate a player, start game sessions and perform oper
 </div>
 </div>
 <div class="sect6">
-<h7 id="_return_type_10">Return Type</h7>
-<div class="paragraph">
-<p><a href="#PlayerAuthenticationResponse"><em>PlayerAuthenticationResponse</em></a></p>
-</div>
-</div>
-<div class="sect6">
-<h7 id="_content_type_10">Content Type</h7>
-<div class="ulist">
-<ul>
-<li>
-<p>application/json</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect6">
-<h7 id="_responses_10">Responses</h7>
-<table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 10. HTTP Response Codes</caption>
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 50%;">
-<col style="width: 16.6667%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Code</th>
-<th class="tableblock halign-left valign-top">Message</th>
-<th class="tableblock halign-left valign-top">Datatype</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">200</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">User authenticated. Return player and session info.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#PlayerAuthenticationResponse"><em>PlayerAuthenticationResponse</em></a></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Authentication error</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#WalletError"><em>WalletError</em></a></p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect6">
-<h7 id="_samples_10">Samples</h7>
-
-</div>
-</div>
-</div>
-<div class="sect4 Bonus">
-<h5 id="_bonus">Bonus</h5>
-<div class="sect5 bonusPayout">
-<h6 id="_bonuspayout">bonusPayout</h6>
-<div class="paragraph">
-<p><code>POST /bonus</code></p>
-</div>
-<div class="paragraph">
-<p>Payout a won bonus to the player</p>
-</div>
-<div class="sect6">
-<h7 id="_description_11">Description</h7>
-
-</div>
-<div class="sect6">
-<h7 id="_parameters_11">Parameters</h7>
-<div class="sect7">
-<h8 id="_body_parameter_2">Body Parameter</h8>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 25%;">
-<col style="width: 37.5%;">
-<col style="width: 12.5%;">
-<col style="width: 12.5%;">
-<col style="width: 12.5%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Name</th>
-<th class="tableblock halign-left valign-top">Description</th>
-<th class="tableblock halign-left valign-top">Required</th>
-<th class="tableblock halign-left valign-top">Default</th>
-<th class="tableblock halign-left valign-top">Pattern</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">BonusPayoutRequest</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#BonusPayoutRequest"><em>BonusPayoutRequest</em></a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<div class="sect6">
-<h7 id="_return_type_11">Return Type</h7>
-<div class="paragraph">
-<p><a href="#BalanceResponse"><em>BalanceResponse</em></a></p>
-</div>
-</div>
-<div class="sect6">
-<h7 id="_content_type_11">Content Type</h7>
-<div class="ulist">
-<ul>
-<li>
-<p>application/json</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect6">
-<h7 id="_responses_11">Responses</h7>
-<table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 11. HTTP Response Codes</caption>
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 50%;">
-<col style="width: 16.6667%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Code</th>
-<th class="tableblock halign-left valign-top">Message</th>
-<th class="tableblock halign-left valign-top">Datatype</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">200</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">OK</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#BalanceResponse"><em>BalanceResponse</em></a></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">WalletError</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#WalletError"><em>WalletError</em></a></p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect6">
-<h7 id="_samples_11">Samples</h7>
-
-</div>
-</div>
-</div>
-<div class="sect4 Wallet">
-<h5 id="_wallet">Wallet</h5>
-<div class="sect5 gameRoundBetCancelled">
-<h6 id="_gameroundbetcancelled">gameRoundBetCancelled</h6>
-<div class="paragraph">
-<p><code>POST /cancel_bet</code></p>
-</div>
-<div class="paragraph">
-<p>Round bet cancelled</p>
-</div>
-<div class="sect6">
-<h7 id="_description_12">Description</h7>
-<div class="paragraph">
-<p>Player has requested to cancel a game bet. Funds should be returned to the player&#8217;s wallet. If all bets for a round are cancelled, the round is implicitly closed.</p>
-</div>
-</div>
-<div class="sect6">
-<h7 id="_parameters_12">Parameters</h7>
-<div class="sect7">
-<h8 id="_body_parameter_3">Body Parameter</h8>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 25%;">
-<col style="width: 37.5%;">
-<col style="width: 12.5%;">
-<col style="width: 12.5%;">
-<col style="width: 12.5%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Name</th>
-<th class="tableblock halign-left valign-top">Description</th>
-<th class="tableblock halign-left valign-top">Required</th>
-<th class="tableblock halign-left valign-top">Default</th>
-<th class="tableblock halign-left valign-top">Pattern</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">GameRoundBetCancelledRequest</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#GameRoundBetCancelledRequest"><em>GameRoundBetCancelledRequest</em></a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<div class="sect6">
 <h7 id="_return_type_12">Return Type</h7>
 <div class="paragraph">
-<p><a href="#BalanceResponse"><em>BalanceResponse</em></a></p>
+<p><a href="#PlayerAuthenticationResponse"><em>PlayerAuthenticationResponse</em></a></p>
 </div>
 </div>
 <div class="sect6">
@@ -5029,12 +5214,12 @@ Provides services to authenticate a player, start game sessions and perform oper
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">200</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">OK</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#BalanceResponse"><em>BalanceResponse</em></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">User authenticated. Return player and session info.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#PlayerAuthenticationResponse"><em>PlayerAuthenticationResponse</em></a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">WalletError</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Authentication error</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#WalletError"><em>WalletError</em></a></p></td>
 </tr>
 </tbody>
@@ -5045,52 +5230,23 @@ Provides services to authenticate a player, start game sessions and perform oper
 
 </div>
 </div>
-<div class="sect5 gameRoundTransaction">
-<h6 id="_gameroundtransaction">gameRoundTransaction</h6>
+</div>
+<div class="sect4 Bonus">
+<h5 id="_bonus">Bonus</h5>
+<div class="sect5 bonusPayout">
+<h6 id="_bonuspayout">bonusPayout</h6>
 <div class="paragraph">
-<p><code>POST /game_round_transaction/{game_round_id}</code></p>
+<p><code>POST /bonus</code></p>
 </div>
 <div class="paragraph">
-<p>Player has performed one or more bets and/or received one or more results.</p>
+<p>Payout a won bonus to the player</p>
 </div>
 <div class="sect6">
 <h7 id="_description_13">Description</h7>
-<div class="paragraph">
-<p>Player has performed one or more bets and/or received one or more results. Funds should be debited from the player&#8217;s wallet in case of a bet, and credited to the player&#8217;s wallet in case of a win.  In case of jackpot wins, amounts will be provided in the <code>jackpot_won</code> array.  If the <code>round_closed</code> flag is true, the round should be marked closed.  <strong>Atomicity</strong>: If the player has multiple bets or results in the same round, they should be processed in a single transaction. Either all must fail or all must succeed. Any failed transaction should cause previous transactions to be rolled back.</p>
-</div>
+
 </div>
 <div class="sect6">
 <h7 id="_parameters_13">Parameters</h7>
-<div class="sect7">
-<h8 id="_path_parameters_4">Path Parameters</h8>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 25%;">
-<col style="width: 37.5%;">
-<col style="width: 12.5%;">
-<col style="width: 12.5%;">
-<col style="width: 12.5%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Name</th>
-<th class="tableblock halign-left valign-top">Description</th>
-<th class="tableblock halign-left valign-top">Required</th>
-<th class="tableblock halign-left valign-top">Default</th>
-<th class="tableblock halign-left valign-top">Pattern</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">game_round_id</p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-</tbody>
-</table>
-</div>
 <div class="sect7">
 <h8 id="_body_parameter_4">Body Parameter</h8>
 <table class="tableblock frame-all grid-all stretch">
@@ -5112,8 +5268,8 @@ Provides services to authenticate a player, start game sessions and perform oper
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">GameRoundTransactionRequest</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#GameRoundTransactionRequest"><em>GameRoundTransactionRequest</em></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BonusPayoutRequest</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#BonusPayoutRequest"><em>BonusPayoutRequest</em></a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
@@ -5173,13 +5329,16 @@ Provides services to authenticate a player, start game sessions and perform oper
 
 </div>
 </div>
-<div class="sect5 playerGetBalance">
-<h6 id="_playergetbalance">playerGetBalance</h6>
+</div>
+<div class="sect4 Service">
+<h5 id="_service_2">Service</h5>
+<div class="sect5 getServiceHealth">
+<h6 id="_getservicehealth_2">getServiceHealth</h6>
 <div class="paragraph">
-<p><code>POST /player/{player_id}/balance</code></p>
+<p><code>GET /service_health</code></p>
 </div>
 <div class="paragraph">
-<p>Player wallet balance lookup</p>
+<p>Returns information about the health of this API service</p>
 </div>
 <div class="sect6">
 <h7 id="_description_14">Description</h7>
@@ -5187,71 +5346,12 @@ Provides services to authenticate a player, start game sessions and perform oper
 </div>
 <div class="sect6">
 <h7 id="_parameters_14">Parameters</h7>
-<div class="sect7">
-<h8 id="_path_parameters_5">Path Parameters</h8>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 25%;">
-<col style="width: 37.5%;">
-<col style="width: 12.5%;">
-<col style="width: 12.5%;">
-<col style="width: 12.5%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Name</th>
-<th class="tableblock halign-left valign-top">Description</th>
-<th class="tableblock halign-left valign-top">Required</th>
-<th class="tableblock halign-left valign-top">Default</th>
-<th class="tableblock halign-left valign-top">Pattern</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">player_id</p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect7">
-<h8 id="_body_parameter_5">Body Parameter</h8>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 25%;">
-<col style="width: 37.5%;">
-<col style="width: 12.5%;">
-<col style="width: 12.5%;">
-<col style="width: 12.5%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Name</th>
-<th class="tableblock halign-left valign-top">Description</th>
-<th class="tableblock halign-left valign-top">Required</th>
-<th class="tableblock halign-left valign-top">Default</th>
-<th class="tableblock halign-left valign-top">Pattern</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">BalanceRequest</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#BalanceRequest"><em>BalanceRequest</em></a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-</tbody>
-</table>
-</div>
+
 </div>
 <div class="sect6">
 <h7 id="_return_type_14">Return Type</h7>
 <div class="paragraph">
-<p><a href="#BalanceResponse"><em>BalanceResponse</em></a></p>
+<p><a href="#ServiceHealth"><em>ServiceHealth</em></a></p>
 </div>
 </div>
 <div class="sect6">
@@ -5283,6 +5383,102 @@ Provides services to authenticate a player, start game sessions and perform oper
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">200</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Service health information</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#ServiceHealth"><em>ServiceHealth</em></a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect6">
+<h7 id="_samples_14">Samples</h7>
+
+</div>
+</div>
+</div>
+<div class="sect4 Wallet">
+<h5 id="_wallet">Wallet</h5>
+<div class="sect5 gameRoundBetCancelled">
+<h6 id="_gameroundbetcancelled">gameRoundBetCancelled</h6>
+<div class="paragraph">
+<p><code>POST /cancel_bet</code></p>
+</div>
+<div class="paragraph">
+<p>Round bet cancelled</p>
+</div>
+<div class="sect6">
+<h7 id="_description_15">Description</h7>
+<div class="paragraph">
+<p>Player has requested to cancel a game bet. Funds should be returned to the player&#8217;s wallet. If all bets for a round are cancelled, the round is implicitly closed.</p>
+</div>
+</div>
+<div class="sect6">
+<h7 id="_parameters_15">Parameters</h7>
+<div class="sect7">
+<h8 id="_body_parameter_5">Body Parameter</h8>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GameRoundBetCancelledRequest</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#GameRoundBetCancelledRequest"><em>GameRoundBetCancelledRequest</em></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect6">
+<h7 id="_return_type_15">Return Type</h7>
+<div class="paragraph">
+<p><a href="#BalanceResponse"><em>BalanceResponse</em></a></p>
+</div>
+</div>
+<div class="sect6">
+<h7 id="_content_type_15">Content Type</h7>
+<div class="ulist">
+<ul>
+<li>
+<p>application/json</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect6">
+<h7 id="_responses_15">Responses</h7>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 15. HTTP Response Codes</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 50%;">
+<col style="width: 16.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Code</th>
+<th class="tableblock halign-left valign-top">Message</th>
+<th class="tableblock halign-left valign-top">Datatype</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">200</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">OK</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#BalanceResponse"><em>BalanceResponse</em></a></p></td>
 </tr>
@@ -5295,7 +5491,261 @@ Provides services to authenticate a player, start game sessions and perform oper
 </table>
 </div>
 <div class="sect6">
-<h7 id="_samples_14">Samples</h7>
+<h7 id="_samples_15">Samples</h7>
+
+</div>
+</div>
+<div class="sect5 gameRoundTransaction">
+<h6 id="_gameroundtransaction">gameRoundTransaction</h6>
+<div class="paragraph">
+<p><code>POST /game_round_transaction/{game_round_id}</code></p>
+</div>
+<div class="paragraph">
+<p>Player has performed one or more bets and/or received one or more results.</p>
+</div>
+<div class="sect6">
+<h7 id="_description_16">Description</h7>
+<div class="paragraph">
+<p>Player has performed one or more bets and/or received one or more results. Funds should be debited from the player&#8217;s wallet in case of a bet, and credited to the player&#8217;s wallet in case of a win.  In case of jackpot wins, amounts will be provided in the <code>jackpot_won</code> array.  If the <code>round_closed</code> flag is true, the round should be marked closed.  <strong>Atomicity</strong>: If the player has multiple bets or results in the same round, they should be processed in a single transaction. Either all must fail or all must succeed. Any failed transaction should cause previous transactions to be rolled back.</p>
+</div>
+</div>
+<div class="sect6">
+<h7 id="_parameters_16">Parameters</h7>
+<div class="sect7">
+<h8 id="_path_parameters_6">Path Parameters</h8>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">game_round_id</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect7">
+<h8 id="_body_parameter_6">Body Parameter</h8>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GameRoundTransactionRequest</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#GameRoundTransactionRequest"><em>GameRoundTransactionRequest</em></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect6">
+<h7 id="_return_type_16">Return Type</h7>
+<div class="paragraph">
+<p><a href="#BalanceResponse"><em>BalanceResponse</em></a></p>
+</div>
+</div>
+<div class="sect6">
+<h7 id="_content_type_16">Content Type</h7>
+<div class="ulist">
+<ul>
+<li>
+<p>application/json</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect6">
+<h7 id="_responses_16">Responses</h7>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 16. HTTP Response Codes</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 50%;">
+<col style="width: 16.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Code</th>
+<th class="tableblock halign-left valign-top">Message</th>
+<th class="tableblock halign-left valign-top">Datatype</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">200</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OK</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#BalanceResponse"><em>BalanceResponse</em></a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">WalletError</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#WalletError"><em>WalletError</em></a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect6">
+<h7 id="_samples_16">Samples</h7>
+
+</div>
+</div>
+<div class="sect5 playerGetBalance">
+<h6 id="_playergetbalance">playerGetBalance</h6>
+<div class="paragraph">
+<p><code>POST /player/{player_id}/balance</code></p>
+</div>
+<div class="paragraph">
+<p>Player wallet balance lookup</p>
+</div>
+<div class="sect6">
+<h7 id="_description_17">Description</h7>
+
+</div>
+<div class="sect6">
+<h7 id="_parameters_17">Parameters</h7>
+<div class="sect7">
+<h8 id="_path_parameters_7">Path Parameters</h8>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">player_id</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect7">
+<h8 id="_body_parameter_7">Body Parameter</h8>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BalanceRequest</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#BalanceRequest"><em>BalanceRequest</em></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect6">
+<h7 id="_return_type_17">Return Type</h7>
+<div class="paragraph">
+<p><a href="#BalanceResponse"><em>BalanceResponse</em></a></p>
+</div>
+</div>
+<div class="sect6">
+<h7 id="_content_type_17">Content Type</h7>
+<div class="ulist">
+<ul>
+<li>
+<p>application/json</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect6">
+<h7 id="_responses_17">Responses</h7>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 17. HTTP Response Codes</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 50%;">
+<col style="width: 16.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Code</th>
+<th class="tableblock halign-left valign-top">Message</th>
+<th class="tableblock halign-left valign-top">Datatype</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">200</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OK</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#BalanceResponse"><em>BalanceResponse</em></a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">WalletError</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#WalletError"><em>WalletError</em></a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect6">
+<h7 id="_samples_17">Samples</h7>
 
 </div>
 </div>
@@ -5696,7 +6146,7 @@ Provides services to authenticate a player, start game sessions and perform oper
 <div class="sect4">
 <h5 id="JackpotAmount"><em>JackpotAmount</em></h5>
 <div class="paragraph">
-<p>The jackpot and amount won/contributed.</p>
+<p>The jackpot and amount.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch fields-JackpotAmount">
 <colgroup>
@@ -5731,7 +6181,7 @@ Provides services to authenticate a player, start game sessions and perform oper
 <td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Integer</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Amount won or contributed in 1/100 currency units.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Jackpoit amount in 1/100 currency units.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">currency</p></td>
 </tr>
 <tr>
@@ -5976,6 +6426,71 @@ Provides services to authenticate a player, start game sessions and perform oper
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">List   of <a href="#JackpotAmount"><em>JackpotAmount</em></a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A list of jackpots and amounts that the player has either won or contributed to.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect4">
+<h5 id="ServiceHealth"><em>ServiceHealth</em></h5>
+<table class="tableblock frame-all grid-all stretch fields-ServiceHealth">
+<colgroup>
+<col style="width: 18.1818%;">
+<col style="width: 9.0909%;">
+<col style="width: 9.0909%;">
+<col style="width: 18.1818%;">
+<col style="width: 36.3636%;">
+<col style="width: 9.091%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field Name</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Nullable</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Format</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">name</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The name of the service</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">status</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#String">[String]</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The status of the service</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Enum:</em> OK, WARNING, DEGRADED, DOWN,</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">message</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A message describing the status of the service</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">version</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The deployed version of the service</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">dependencies</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List   of <a href="#ServiceHealth"><em>ServiceHealth</em></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A list of dependencies and their status</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 </tbody>
@@ -6295,6 +6810,30 @@ Currently IPv4, IPv6 under evaluation</p></td>
 </tbody>
 </table>
 </div>
+<div class="sect3">
+<h4 id="_compliance_and_jurisdiction_formats">5.1.8. Compliance and Jurisdiction Formats</h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 40%;">
+<col style="width: 40%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Format/Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">jurisdictioncode</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Jurisdiction identifier for regulatory compliance. Multiple jurisdictions supported per brand.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Assigned by Entain based on regulatory requirements</p></td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 </div>
 </div>
@@ -6304,7 +6843,241 @@ Currently IPv4, IPv6 under evaluation</p></td>
 <div class="sect2">
 <h3 id="_error_handling">6.1. Error Handling</h3>
 <div class="paragraph">
-<p><strong>TODO</strong></p>
+<p>Both the Casino Service and Partner Wallet Service use standardized error response formats to ensure consistent error handling across the integration.</p>
+</div>
+<div class="sect3">
+<h4 id="_casino_service_error_responses">6.1.1. Casino Service Error Responses</h4>
+<div class="paragraph">
+<p>The Casino Service returns errors using the <code>CasinoError</code> schema with the following structure:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-json" data-lang="json">{
+  "error_code": "GAME_NOT_FOUND",
+  "error_message": "The requested game could not be found",
+  "error_details": {
+    "game_id": "invalid_game_123"
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_partner_wallet_service_error_responses">6.1.2. Partner Wallet Service Error Responses</h4>
+<div class="paragraph">
+<p>The Partner Wallet Service returns errors using the <code>WalletError</code> schema with the following structure:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-json" data-lang="json">{
+  "error_code": "INSUFFICIENT_FUNDS",
+  "error_message": "Player does not have sufficient funds for this bet",
+  "error_details": {
+    "required_amount": 1000,
+    "available_balance": 500,
+    "currency": "USD"
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_service_health_monitoring">6.2. Service Health Monitoring</h3>
+<div class="paragraph">
+<p>Both APIs provide service health endpoints that return comprehensive status
+information about the service and its dependencies. These endpoints are
+essential for monitoring, alerting, and operational visibility.</p>
+</div>
+<div class="paragraph">
+<p>TODO: The teams should agree on system failure mode behaviour when systems
+are down or running in degraded state.</p>
+</div>
+<div class="sect3">
+<h4 id="_health_check_endpoints">6.2.1. Health Check Endpoints</h4>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Casino Service</strong>: <code>GET /service_health</code></p>
+</li>
+<li>
+<p><strong>Partner Wallet Service</strong>: <code>GET /service_health</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Both endpoints return a <code>ServiceHealth</code> response with status information and
+dependency health details.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_health_status_levels">6.2.2. Health Status Levels</h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Status</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OK</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Service is fully operational with all dependencies healthy</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">WARNING</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Service is operational but some non-critical dependencies may be degraded</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DEGRADED</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Service is operational with reduced functionality due to dependency issues</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DOWN</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Service is not operational or critical dependencies are unavailable</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_casino_service_dependencies">6.2.3. Casino Service Dependencies</h4>
+<div class="paragraph">
+<p>The Casino Service health endpoint monitors these explicit services:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 28.5714%;">
+<col style="width: 42.8571%;">
+<col style="width: 28.5715%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Dependency</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Impact if Down</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Lobby Management Tool (LMT)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Backend system managing lobby templates and game organization</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Lobby feeds unavailable, cached data served</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Game Launch Service</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Core service generating game launch URLs and managing sessions</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Game launches fail, players cannot start games</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Global Jackpot Service</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Service managing jackpot pools and calculations</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Jackpot data stale, no jackpot updates</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Third-Party Game Providers</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">External game supplier integrations</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specific provider games unavailable</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_partner_wallet_service_dependencies">6.2.4. Partner Wallet Service Dependencies</h4>
+<div class="paragraph">
+<p>The Partner Wallet Service should monitor these (inexchausexplicit services:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 28.5714%;">
+<col style="width: 42.8571%;">
+<col style="width: 28.5715%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Dependency</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Impact if Down</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Authentication Service</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Player session validation and token management</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Players cannot authenticate, game launches fail</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Payment Gateway</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">External payment processing for deposits/withdrawals</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Funding operations unavailable, balance updates delayed</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Fraud Detection System</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Real-time transaction monitoring and risk assessment</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reduced security, potential compliance issues</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Audit Logging Service</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Transaction audit trail and compliance reporting</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Regulatory compliance at risk, reduced traceability</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_implementation_recommendations">6.2.5. Implementation Recommendations</h4>
+<div class="sect4">
+<h5 id="_monitoring_strategy">Monitoring Strategy</h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Health Check Frequency</strong>: Poll health endpoints every 30-60 seconds</p>
+</li>
+<li>
+<p><strong>Alerting Thresholds</strong>: Alert on WARNING status, escalate on DEGRADED/DOWN</p>
+</li>
+<li>
+<p><strong>Dependency Timeouts</strong>: Set appropriate timeouts for each dependency check</p>
+</li>
+<li>
+<p><strong>Circuit Breakers</strong>: Implement circuit breakers for external dependencies</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_response_format_example">Response Format Example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-json" data-lang="json">{
+  "name": "Casino Service",
+  "status": "OK",
+  "message": "Service is operational",
+  "version": "1.2.3",
+  "dependencies": [
+    {
+      "name": "Lobby Management Tool",
+      "status": "OK",
+      "message": "Connected successfully"
+    },
+    {
+      "name": "Global Jackpot Service",
+      "status": "WARNING",
+      "message": "High response time detected"
+    },
+    {
+      "name": "Game Launch Service",
+      "status": "OK",
+      "message": "Service responding normally"
+    }
+  ]
+}</code></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -6312,7 +7085,7 @@ Currently IPv4, IPv6 under evaluation</p></td>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-08-07 16:35:25 +0530
+Last updated 2025-09-04 18:38:37 +0530
 </div>
 </div>
 </body>
